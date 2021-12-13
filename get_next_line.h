@@ -6,7 +6,7 @@
 /*   By: mriant <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 10:33:21 by mriant            #+#    #+#             */
-/*   Updated: 2021/12/13 11:48:48 by mriant           ###   ########.fr       */
+/*   Updated: 2021/12/13 14:43:41 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
  #include <sys/stat.h> // open
  #include <fcntl.h> // open
 
+ char    *get_next_line(int fd);
  size_t	ft_strlen(const char *s);
  void	ft_bzero(void *s, size_t n);
  void	*ft_calloc(size_t count, size_t size);

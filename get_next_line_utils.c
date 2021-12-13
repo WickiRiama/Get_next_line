@@ -6,7 +6,7 @@
 /*   By: mriant <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 10:32:44 by mriant            #+#    #+#             */
-/*   Updated: 2021/12/13 12:36:41 by mriant           ###   ########.fr       */
+/*   Updated: 2021/12/13 15:16:28 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,6 @@ char	*ft_strjoin(char const *s, char const *s2)
 		i ++;
 		j ++;
 	}
-	result[i] = '\0';
 	return (result);
 }
 
