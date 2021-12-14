@@ -4,4 +4,4 @@
 main.c
 test_file
 *.swp
-*.dSYN
+*.dSYM
