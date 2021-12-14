@@ -6,7 +6,7 @@
 /*   By: mriant <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 16:22:05 by mriant            #+#    #+#             */
-/*   Updated: 2021/12/14 15:30:37 by mriant           ###   ########.fr       */
+/*   Updated: 2021/12/14 15:55:12 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,40 +79,49 @@ char	*get_next_line(int fd)
 {
 	long int	ret;
 	char		*buf;
-	static char	*tail;
+	static char	*tail[1024];
 	char		*line;
 	char		*endline;
 
-	if (fd == -1 || BUFFER_SIZE == 0)
+	if (fd == -1 || fd > 1024 || BUFFER_SIZE == 0)
 		return (NULL);
 	buf = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
-	line = ft_strdup(tail);
+	line = ft_strdup(tail[fd]);
 	ret = ft_readline(fd, &buf, &line);
-	if (ret <= 0 && !tail)
+	if (ret <= 0 && !tail[fd])
 	{
 		free(buf);
 		free(line);
 		return (NULL);
 	}
 	endline = ft_strchr(buf, '\n');
-	ft_setline(endline, &line, &tail, buf);
+	ft_setline(endline, &line, &tail[fd], buf);
 	free(buf);
 	return (line);
 }
-/*
-   int	main(void)
-   {
-   int		fd;
 
-   fd = open("test_file", O_RDONLY);
-   char	*str = get_next_line(fd);
-   printf("%s", str);
-   free(str);
-   while (str)
-   {
-   str = get_next_line(fd);
-   printf("%s", str);
-   free (str);
-   }
-   close (fd);
-   }*/
+int	main(void)
+{
+	int		fd1;
+	int		fd2;
+
+	fd1 = open("test_file", O_RDONLY);
+	fd2 = open("test_file_2", O_RDONLY);
+	char	*str = get_next_line(fd1);
+	printf("fd1 :%s", str);
+	free(str);
+	while (str)
+	{
+		str = get_next_line(0);
+		printf("input : %s", str);
+		free(str);
+		str = get_next_line(fd2);
+		printf("fd2 : %s", str);
+		free(str);
+		str = get_next_line(fd1);
+		printf("fd1 : %s", str);
+		free (str);
+	}
+	close (fd1);
+	close (fd2);
+}
