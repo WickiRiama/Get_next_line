@@ -6,7 +6,7 @@
 /*   By: mriant <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 10:33:21 by mriant            #+#    #+#             */
-/*   Updated: 2021/12/14 14:25:25 by mriant           ###   ########.fr       */
+/*   Updated: 2021/12/14 15:18:35 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,15 @@
 # include <sys/stat.h> // open
 # include <fcntl.h> // open
 
-char	*get_next_line(int fd);
-size_t	ft_strlen(const char *s);
-void	ft_bzero(void *s, size_t n);
-void	*ft_calloc(size_t count, size_t size);
-char	*ft_strchr(const char *s, int c);
-char	*ft_strjoin(char *s, char const *s2);
-char	*ft_substr(char const *s, unsigned int start, size_t len);
-char	*ft_strdup(const char *s1);
+char		*get_next_line(int fd);
+size_t		ft_strlen(const char *s);
+void		ft_bzero(void *s, size_t n);
+void		*ft_calloc(size_t count, size_t size);
+char		*ft_strchr(const char *s, int c);
+char		*ft_strjoin_free(char *s, char const *s2);
+char		*ft_substr(char const *s, unsigned int start, size_t len);
+char		*ft_strdup(const char *s1);
+long int	ft_readline(int fd, char **buf, char **line);
+void		ft_setline(char *endline, char **line, char **tail, char *buf);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mriant <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 10:32:44 by mriant            #+#    #+#             */
-/*   Updated: 2021/12/14 14:27:00 by mriant           ###   ########.fr       */
+/*   Updated: 2021/12/14 15:27:46 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,28 +24,22 @@ size_t	ft_strlen(const char *s)
 	return (i);
 }
 
-void	ft_bzero(void *s, size_t n)
-{
-	size_t	i;
-	char	*str;
-
-	i = 0;
-	str = s;
-	while (i < n)
-	{
-		str[i] = '\0';
-		i ++;
-	}
-}
-
 void	*ft_calloc(size_t count, size_t size)
 {
 	void	*result;
+	size_t	i;
+	char	*str;
 
 	result = malloc(count * size);
 	if (!result)
 		return (NULL);
-	ft_bzero(result, count * size);
+	str = (char *)result;
+	i = 0;
+	while (i < count * size)
+	{
+		str[i] = '\0';
+		i++;
+	}
 	return (result);
 }
 
@@ -65,35 +59,6 @@ char	*ft_strchr(const char *s, int c)
 	if (str[i] == (unsigned char) c)
 		return ((char *)s + i);
 	return (NULL);
-}
-
-char	*ft_strjoin(char *s, char const *s2)
-{
-	char	*result;
-	size_t	i;
-	size_t	j;
-
-	i = 0;
-	j = 0;
-	result = ft_calloc(sizeof(char), (ft_strlen(s) + ft_strlen(s2) + 1));
-	if (!result)
-	{
-		free (s);
-		return (NULL);
-	}
-	while (s && s[i])
-	{
-		result[i] = s[i];
-		i ++;
-	}
-	while (s2 && s2[j])
-	{
-		result[i] = s2[j];
-		i ++;
-		j ++;
-	}
-	free(s);
-	return (result);
 }
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
