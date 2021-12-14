@@ -6,7 +6,7 @@
 /*   By: mriant <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 10:32:44 by mriant            #+#    #+#             */
-/*   Updated: 2021/12/13 15:16:28 by mriant           ###   ########.fr       */
+/*   Updated: 2021/12/14 14:27:00 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ char	*ft_strchr(const char *s, int c)
 	return (NULL);
 }
 
-char	*ft_strjoin(char const *s, char const *s2)
+char	*ft_strjoin(char *s, char const *s2)
 {
 	char	*result;
 	size_t	i;
@@ -77,7 +77,10 @@ char	*ft_strjoin(char const *s, char const *s2)
 	j = 0;
 	result = ft_calloc(sizeof(char), (ft_strlen(s) + ft_strlen(s2) + 1));
 	if (!result)
+	{
+		free (s);
 		return (NULL);
+	}
 	while (s && s[i])
 	{
 		result[i] = s[i];
@@ -89,6 +92,7 @@ char	*ft_strjoin(char const *s, char const *s2)
 		i ++;
 		j ++;
 	}
+	free(s);
 	return (result);
 }
 
@@ -116,4 +120,22 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 		i ++;
 	}
 	return (result);
+}
+
+char	*ft_strdup(const char *s1)
+{
+	char	*dest;
+	int		i;
+
+	dest = malloc(sizeof(char) * (ft_strlen(s1) + 1));
+	if (!dest)
+		return (NULL);
+	i = 0;
+	while (s1 && s1[i])
+	{
+		dest[i] = s1[i];
+		i ++;
+	}
+	dest[i] = '\0';
+	return (dest);
 }
