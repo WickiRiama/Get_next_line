@@ -6,7 +6,7 @@
 /*   By: mriant <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 16:22:05 by mriant            #+#    #+#             */
-/*   Updated: 2021/12/14 15:55:12 by mriant           ###   ########.fr       */
+/*   Updated: 2021/12/15 14:33:10 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ long int	ft_readline(int fd, char **buf, char **line)
 	while (ret > 0 && !ft_strchr(*buf, '\n'))
 	{
 		*line = ft_strjoin_free(*line, *buf);
-		ret = read (fd, *buf, BUFFER_SIZE);
+		ret = read (fd, buf[0], BUFFER_SIZE);
 	}
 	return (ret);
 }
@@ -88,7 +88,7 @@ char	*get_next_line(int fd)
 	buf = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
 	line = ft_strdup(tail[fd]);
 	ret = ft_readline(fd, &buf, &line);
-	if (ret <= 0 && !tail[fd])
+	if (ret <= 0 && tail[fd][0] == '\0')
 	{
 		free(buf);
 		free(line);
