@@ -6,7 +6,7 @@
 /*   By: mriant <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 16:22:05 by mriant            #+#    #+#             */
-/*   Updated: 2021/12/15 14:33:10 by mriant           ###   ########.fr       */
+/*   Updated: 2021/12/15 15:55:14 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ long int	ft_readline(int fd, char **buf, char **line)
 	{
 		*line = ft_strjoin_free(*line, *buf);
 		ret = read (fd, buf[0], BUFFER_SIZE);
+		buf[0] = ft_substr(buf[0], 0, ret);
 	}
 	return (ret);
 }
@@ -70,7 +71,7 @@ void	ft_setline(char *endline, char **line, char **tail, char *buf)
 	else
 	{
 		*line = ft_strjoin_free(*line, buf);
-		free(*tail);
+		//free(*tail);
 		*tail = NULL;
 	}
 }
@@ -86,12 +87,14 @@ char	*get_next_line(int fd)
 	if (fd == -1 || fd > 1024 || BUFFER_SIZE == 0)
 		return (NULL);
 	buf = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
+	tail[fd] = ft_strjoin_free(tail[fd], "\0");
 	line = ft_strdup(tail[fd]);
 	ret = ft_readline(fd, &buf, &line);
 	if (ret <= 0 && tail[fd][0] == '\0')
 	{
 		free(buf);
 		free(line);
+		free(tail[fd]);
 		return (NULL);
 	}
 	endline = ft_strchr(buf, '\n');
@@ -107,7 +110,7 @@ int	main(void)
 
 	fd1 = open("test_file", O_RDONLY);
 	fd2 = open("test_file_2", O_RDONLY);
-	char	*str = get_next_line(fd1);
+	char	*str = get_next_line(0);
 	printf("fd1 :%s", str);
 	free(str);
 	while (str)
@@ -115,12 +118,12 @@ int	main(void)
 		str = get_next_line(0);
 		printf("input : %s", str);
 		free(str);
-		str = get_next_line(fd2);
+		/*str = get_next_line(fd2);
 		printf("fd2 : %s", str);
 		free(str);
 		str = get_next_line(fd1);
 		printf("fd1 : %s", str);
-		free (str);
+		free (str)*/;
 	}
 	close (fd1);
 	close (fd2);
