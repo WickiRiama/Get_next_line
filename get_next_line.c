@@ -6,7 +6,7 @@
 /*   By: mriant <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 16:22:05 by mriant            #+#    #+#             */
-/*   Updated: 2021/12/16 18:17:25 by mriant           ###   ########.fr       */
+/*   Updated: 2021/12/16 18:24:59 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ long int	ft_readline(int fd, char **buf, char **line)
 {	
 	long int	ret;
 
+	if (!(*buf))
+		return (-1);
 	ret = 1;
 	while (ret > 0 && !ft_strchr(buf[0], '\n'))
 	{
@@ -90,13 +92,13 @@ char	*get_next_line(int fd)
 	static char	*tail[1024];
 	char		*line;
 
-	if (fd == -1 || fd > 1024 || BUFFER_SIZE <= 0)
+	if (fd == -1 || fd >= 1024 || BUFFER_SIZE <= 0)
 		return (NULL);
 	buf = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
 	tail[fd] = ft_strjoin_free(tail[fd], "\0");
 	line = ft_strdup(tail[fd]);
 	ret = ft_readline(fd, &buf, &line);
-	if (ret < 0)
+	if (ret < 0 || !buf)
 	{
 		ft_clean(buf, tail[fd], line);
 		return (NULL);
@@ -111,6 +113,7 @@ char	*get_next_line(int fd)
 	return (line);
 }
 
+/*
 int	main(void)
 {
 	int		fd1;
@@ -135,4 +138,4 @@ int	main(void)
 	}
 	close (fd1);
 	close (fd2);
-}
+}*/
