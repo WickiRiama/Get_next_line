@@ -6,7 +6,7 @@
 /*   By: mriant <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 16:22:05 by mriant            #+#    #+#             */
-/*   Updated: 2021/12/15 15:55:14 by mriant           ###   ########.fr       */
+/*   Updated: 2021/12/16 13:26:33 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,11 @@ long int	ft_readline(int fd, char **buf, char **line)
 	long int	ret;
 
 	ret = 1;
-	while (ret > 0 && !ft_strchr(*buf, '\n'))
+	while (ret > 0 && !ft_strchr(buf[0], '\n'))
 	{
-		*line = ft_strjoin_free(*line, *buf);
+		line[0] = ft_strjoin_free(line[0], buf[0]);
 		ret = read (fd, buf[0], BUFFER_SIZE);
-		buf[0] = ft_substr(buf[0], 0, ret);
+		buf[0][ret] = '\0';
 	}
 	return (ret);
 }
@@ -71,7 +71,7 @@ void	ft_setline(char *endline, char **line, char **tail, char *buf)
 	else
 	{
 		*line = ft_strjoin_free(*line, buf);
-		//free(*tail);
+		free(*tail);
 		*tail = NULL;
 	}
 }
@@ -93,9 +93,15 @@ char	*get_next_line(int fd)
 	if (ret <= 0 && tail[fd][0] == '\0')
 	{
 		free(buf);
-		free(line);
 		free(tail[fd]);
-		return (NULL);
+		tail[fd] = NULL;
+		if (line[0] == '\0')
+		{
+			free(line);
+			return (NULL);
+		}
+		else
+			return (line);
 	}
 	endline = ft_strchr(buf, '\n');
 	ft_setline(endline, &line, &tail[fd], buf);
@@ -110,7 +116,7 @@ int	main(void)
 
 	fd1 = open("test_file", O_RDONLY);
 	fd2 = open("test_file_2", O_RDONLY);
-	char	*str = get_next_line(0);
+	char	*str = get_next_line(fd1);
 	printf("fd1 :%s", str);
 	free(str);
 	while (str)
@@ -118,12 +124,12 @@ int	main(void)
 		str = get_next_line(0);
 		printf("input : %s", str);
 		free(str);
-		/*str = get_next_line(fd2);
+		str = get_next_line(fd2);
 		printf("fd2 : %s", str);
 		free(str);
 		str = get_next_line(fd1);
 		printf("fd1 : %s", str);
-		free (str)*/;
+		free (str);
 	}
 	close (fd1);
 	close (fd2);
