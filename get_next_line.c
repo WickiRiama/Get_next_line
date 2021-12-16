@@ -6,7 +6,7 @@
 /*   By: mriant <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 16:22:05 by mriant            #+#    #+#             */
-/*   Updated: 2021/12/16 13:26:33 by mriant           ###   ########.fr       */
+/*   Updated: 2021/12/16 14:14:41 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,6 @@ long int	ft_readline(int fd, char **buf, char **line)
 
 void	ft_setline(char *endline, char **line, char **tail, char *buf)
 {
-	long int	ret;
-
-	ret = 1;
 	if (endline)
 	{
 		free(*tail);
@@ -76,6 +73,13 @@ void	ft_setline(char *endline, char **line, char **tail, char *buf)
 	}
 }
 
+void	ft_clean(char *buf, char *tail, char *line)
+{
+	free(buf);
+	free(tail);
+	free(line);
+}
+
 char	*get_next_line(int fd)
 {
 	long int	ret;
@@ -90,21 +94,18 @@ char	*get_next_line(int fd)
 	tail[fd] = ft_strjoin_free(tail[fd], "\0");
 	line = ft_strdup(tail[fd]);
 	ret = ft_readline(fd, &buf, &line);
-	if (ret <= 0 && tail[fd][0] == '\0')
+	if (ret < 0)
 	{
-		free(buf);
-		free(tail[fd]);
-		tail[fd] = NULL;
-		if (line[0] == '\0')
-		{
-			free(line);
-			return (NULL);
-		}
-		else
-			return (line);
+		ft_clean(buf, tail[fd], line);
+		return (NULL);
 	}
 	endline = ft_strchr(buf, '\n');
 	ft_setline(endline, &line, &tail[fd], buf);
+	if (ret == 0 && !tail[fd] && line[0] == '\0')
+	{
+		free(line);
+		line = NULL;
+	}
 	free(buf);
 	return (line);
 }
