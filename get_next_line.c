@@ -6,7 +6,7 @@
 /*   By: mriant <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 16:22:05 by mriant            #+#    #+#             */
-/*   Updated: 2021/12/16 18:24:59 by mriant           ###   ########.fr       */
+/*   Updated: 2021/12/17 10:46:11 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,34 +48,28 @@ long int	ft_readline(int fd, char **buf, char **line)
 	if (!(*buf))
 		return (-1);
 	ret = 1;
-	while (ret > 0 && !ft_strchr(buf[0], '\n'))
+	while (ret > 0 && !ft_strchr(line[0], '\n'))
 	{
-		line[0] = ft_strjoin_free(line[0], buf[0]);
 		ret = read (fd, buf[0], BUFFER_SIZE);
 		buf[0][ret] = '\0';
+		line[0] = ft_strjoin_free(line[0], buf[0]);
 	}
 	return (ret);
 }
 
-void	ft_setline(char **line, char **tail, char *buf)
+void	ft_setline(char **line, char **tail)
 {
 	char	*endline;
 
-	endline = ft_strchr(buf, '\n');
+	endline = ft_strchr(line[0], '\n');
+	free(*tail);
 	if (endline)
 	{
-		free(*tail);
-		*tail = ft_substr(buf, 0, endline - buf + 1);
-		*line = ft_strjoin_free(*line, *tail);
-		free(*tail);
 		*tail = ft_strdup(endline + 1);
+		endline[1] = '\0';
 	}
 	else
-	{
-		*line = ft_strjoin_free(*line, buf);
-		free(*tail);
 		*tail = NULL;
-	}
 }
 
 void	ft_clean(char *buf, char *tail, char *line)
@@ -92,7 +86,7 @@ char	*get_next_line(int fd)
 	static char	*tail[1024];
 	char		*line;
 
-	if (fd == -1 || fd >= 1024 || BUFFER_SIZE <= 0)
+	if (fd < 0 || fd >= 1024 || BUFFER_SIZE <= 0)
 		return (NULL);
 	buf = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
 	tail[fd] = ft_strjoin_free(tail[fd], "\0");
@@ -103,7 +97,7 @@ char	*get_next_line(int fd)
 		ft_clean(buf, tail[fd], line);
 		return (NULL);
 	}
-	ft_setline(&line, &tail[fd], buf);
+	ft_setline(&line, &tail[fd]);
 	if (ret == 0 && !tail[fd] && line[0] == '\0')
 	{
 		free(line);
@@ -112,7 +106,6 @@ char	*get_next_line(int fd)
 	free(buf);
 	return (line);
 }
-
 /*
 int	main(void)
 {

@@ -6,7 +6,7 @@
 /*   By: mriant <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 10:33:21 by mriant            #+#    #+#             */
-/*   Updated: 2021/12/16 18:18:00 by mriant           ###   ########.fr       */
+/*   Updated: 2021/12/17 10:09:54 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,6 @@ char		*ft_strjoin_free(char *s, char const *s2);
 char		*ft_substr(char const *s, unsigned int start, size_t len);
 char		*ft_strdup(const char *s1);
 long int	ft_readline(int fd, char **buf, char **line);
-void		ft_setline(char **line, char **tail, char *buf);
+void		ft_setline(char **line, char **tail);
 
 #endif
