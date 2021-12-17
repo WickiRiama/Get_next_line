@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mriant <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/09 16:22:05 by mriant            #+#    #+#             */
-/*   Updated: 2021/12/17 12:01:37 by mriant           ###   ########.fr       */
+/*   Created: 2021/12/17 11:09:39 by mriant            #+#    #+#             */
+/*   Updated: 2021/12/17 11:49:46 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*ft_strjoin_free(char *s, char const *s2)
 {
@@ -86,7 +86,7 @@ char	*get_next_line(int fd)
 	static char	*tail[256];
 	char		*line;
 
-	if (fd < 0 || fd >= 255 || BUFFER_SIZE <= 0)
+	if (fd < 0 || fd >= 256 || BUFFER_SIZE <= 0)
 		return (NULL);
 	buf = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
 	tail[fd] = ft_strjoin_free(tail[fd], "\0");
