@@ -6,12 +6,12 @@
 /*   By: mriant <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 11:10:38 by mriant            #+#    #+#             */
-/*   Updated: 2021/12/17 11:10:43 by mriant           ###   ########.fr       */
+/*   Updated: 2021/12/17 13:21:46 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#ifndef GET_NEXT_LINE_BONUS_H
+# define GET_NEXT_LINE_BONUS_H
 
 # include <stdlib.h> //NULL malloc free
 # include <sys/types.h> // open read
