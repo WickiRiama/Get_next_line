@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mriant <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 16:22:05 by mriant            #+#    #+#             */
-/*   Updated: 2021/12/17 10:46:11 by mriant           ###   ########.fr       */
+/*   Updated: 2022/02/15 11:52:49 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,11 @@ long int	ft_readline(int fd, char **buf, char **line)
 	while (ret > 0 && !ft_strchr(line[0], '\n'))
 	{
 		ret = read (fd, buf[0], BUFFER_SIZE);
-		buf[0][ret] = '\0';
-		line[0] = ft_strjoin_free(line[0], buf[0]);
+		if (ret >= 0)
+		{
+			buf[0][ret] = '\0';
+			line[0] = ft_strjoin_free(line[0], buf[0]);
+		}
 	}
 	return (ret);
 }
