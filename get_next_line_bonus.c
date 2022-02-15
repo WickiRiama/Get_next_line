@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mriant <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/09 16:22:05 by mriant            #+#    #+#             */
-/*   Updated: 2022/02/15 11:56:17 by mriant           ###   ########.fr       */
+/*   Created: 2021/12/17 11:09:39 by mriant            #+#    #+#             */
+/*   Updated: 2021/12/17 11:49:46 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*ft_strjoin_free(char *s, char const *s2)
 {
@@ -51,11 +51,8 @@ long int	ft_readline(int fd, char **buf, char **line)
 	while (ret > 0 && !ft_strchr(line[0], '\n'))
 	{
 		ret = read (fd, buf[0], BUFFER_SIZE);
-		if (ret >= 0)
-		{
-			buf[0][ret] = '\0';
-			line[0] = ft_strjoin_free(line[0], buf[0]);
-		}
+		buf[0][ret] = '\0';
+		line[0] = ft_strjoin_free(line[0], buf[0]);
 	}
 	return (ret);
 }
@@ -89,7 +86,7 @@ char	*get_next_line(int fd)
 	static char	*tail[256];
 	char		*line;
 
-	if (fd < 0 || fd >= 255 || BUFFER_SIZE <= 0)
+	if (fd < 0 || fd >= 256 || BUFFER_SIZE <= 0)
 		return (NULL);
 	buf = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
 	tail[fd] = ft_strjoin_free(tail[fd], "\0");
