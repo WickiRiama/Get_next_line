@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mriant <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 10:33:21 by mriant            #+#    #+#             */
-/*   Updated: 2021/12/17 10:09:54 by mriant           ###   ########.fr       */
+/*   Updated: 2022/03/04 15:45:00 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,10 @@
 # include <stdio.h> // printf
 # include <sys/stat.h> // open
 # include <fcntl.h> // open
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 42
+# endif
 
 char		*get_next_line(int fd);
 size_t		ft_strlen(const char *s);
