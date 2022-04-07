@@ -6,7 +6,7 @@
 /*   By: mriant <mriant@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 16:22:05 by mriant            #+#    #+#             */
-/*   Updated: 2022/02/15 11:56:17 by mriant           ###   ########.fr       */
+/*   Updated: 2022/04/07 18:13:41 by mriant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	ft_setline(char **line, char **tail)
 
 	endline = ft_strchr(line[0], '\n');
 	free(*tail);
-	if (endline)
+	if (endline && *(endline + 1) != '\0')
 	{
 		*tail = ft_strdup(endline + 1);
 		endline[1] = '\0';
